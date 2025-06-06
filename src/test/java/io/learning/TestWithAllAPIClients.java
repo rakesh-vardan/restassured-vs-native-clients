@@ -125,7 +125,7 @@ public class TestWithAllAPIClients {
                 .block();
 
         // validate response
-        assert response != null;
+        assertNotNull(response);
         assertEquals(HttpStatus.OK, response.statusCode());
         assertEquals("application/json;charset=utf-8",
                 Objects.requireNonNull(response.headers().asHttpHeaders().getContentType())
