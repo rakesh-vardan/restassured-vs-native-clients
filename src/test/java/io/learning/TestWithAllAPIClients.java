@@ -135,7 +135,7 @@ public class TestWithAllAPIClients {
     }
 
     @Test
-    void testWithRESTAssured() {
+    void testWithRestAssured() {
         given().
                 baseUri(this.URL).       // prepare request
         when()
