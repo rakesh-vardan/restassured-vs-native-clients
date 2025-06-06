@@ -86,19 +86,20 @@ public class TestWithAllAPIClients {
     @Test
     void testWithApacheHttpClient() throws ProtocolException, IOException {
         // prepare request
-        CloseableHttpClient httpClient = HttpClients.createDefault();
-        HttpGet request = new HttpGet(this.URL);
+        try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
+            HttpGet request = new HttpGet(this.URL);
 
-        // send request
-        CloseableHttpResponse response = httpClient.execute(request);
+            // send request
+            try (CloseableHttpResponse response = httpClient.execute(request)) {
 
-        // validate response
-        assertEquals(200, response.getCode());
-        assertEquals(CONTENT_TYPE_VALUE,
-                response.getHeader(CONTENT_TYPE_KEY).getValue());
-        assertTrue(EntityUtils.toString(response.getEntity())
-                .contains(LEANNE_GRAHAM));
-        httpClient.close();
+                // validate response
+                assertEquals(200, response.getCode());
+                assertEquals(CONTENT_TYPE_VALUE,
+                        response.getHeader(CONTENT_TYPE_KEY).getValue());
+                assertTrue(EntityUtils.toString(response.getEntity())
+                        .contains(LEANNE_GRAHAM));
+            }
+        }
     }
 
     @Test
